@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rodrigo.Tech.Model\Rodrigo.Tech.Model.csproj" />
+  </ItemGroup>
+
 </Project>
