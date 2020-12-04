@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Rodrigo.Tech.BoilerPlate.Extensions.ServiceCollection;
 using Rodrigo.Tech.Model.AutoMapper;
 using Rodrigo.Tech.Services.Helpers;
+using Serilog;
 using System;
 
 [assembly: FunctionsStartup(typeof(Rodrigo.Tech.BoilerPlate.Startup))]
@@ -23,8 +24,11 @@ namespace Rodrigo.Tech.BoilerPlate
                 .Build();
 
             builder.Services.AddLoggingServiceCollection(configuration);
+            Log.Information("Adding Database Service");
             builder.Services.AddDatabaseServiceCollection();
+            Log.Information("Adding CustomServices Service");
             builder.Services.AddServicesServiceCollection();
+            Log.Information("Adding AutoMapper Service");
             builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
         }
     }
