@@ -9,6 +9,12 @@ using Newtonsoft.Json;
 using Rodrigo.Tech.Services.Interface;
 using Rodrigo.Tech.Model.Constants;
 using Rodrigo.Tech.Model.Requests;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.OpenApi.Models;
+using System.Net;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using System.Collections.Generic;
+using Rodrigo.Tech.Model.Responses;
 
 namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
 {
@@ -24,8 +30,10 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             _itemService = itemService;
         }
 
+        [OpenApiOperation(operationId: "getItems", tags: new[] { "item" }, Summary = "Gets the list of dummies", Description = "This gets the list of dummies.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IList<ItemResponse>), Summary = "List of the dummy responses", Description = "This returns the list of dummy responses")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_GETALL)]
-        public async Task<IActionResult> GetAllEmails(
+        public async Task<IActionResult> GetAllItems(
             [HttpTrigger(AuthorizationLevel.Function, "get",
             Route = HttpTriggerFunctionRouteConstants.ITEM)] HttpRequest req
             )
@@ -46,8 +54,10 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        [OpenApiOperation(operationId: "getItem", tags: new[] { "item" }, Summary = "Gets the list of dummies", Description = "This gets the list of dummies.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ItemResponse), Summary = "List of the dummy responses", Description = "This returns the list of dummy responses")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_GET)]
-        public async Task<IActionResult> GetEmail(
+        public async Task<IActionResult> GetItem(
             [HttpTrigger(AuthorizationLevel.Function, "get",
             Route = HttpTriggerFunctionRouteConstants.ITEM_BYID)] HttpRequest request, Guid id)
         {
@@ -67,8 +77,10 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        [OpenApiOperation(operationId: "postItem", tags: new[] { "item" }, Summary = "Gets the list of dummies", Description = "This gets the list of dummies.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ItemResponse), Summary = "List of the dummy responses", Description = "This returns the list of dummy responses")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_POST)]
-        public async Task<IActionResult> PostEmail(
+        public async Task<IActionResult> PostItem(
             [HttpTrigger(AuthorizationLevel.Function, "post",
             Route = HttpTriggerFunctionRouteConstants.ITEM)] HttpRequest request)
         {
@@ -90,8 +102,10 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        [OpenApiOperation(operationId: "putItem", tags: new[] { "item" }, Summary = "Gets the list of dummies", Description = "This gets the list of dummies.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IList<ItemResponse>), Summary = "List of the dummy responses", Description = "This returns the list of dummy responses")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_PUT)]
-        public async Task<IActionResult> PutEmail(
+        public async Task<IActionResult> PutItem(
             [HttpTrigger(AuthorizationLevel.Function, "put",
             Route = HttpTriggerFunctionRouteConstants.ITEM_BYID)] HttpRequest request, Guid id)
         {
@@ -113,8 +127,10 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        [OpenApiOperation(operationId: "deleteItem", tags: new[] { "item" }, Summary = "Gets the list of dummies", Description = "This gets the list of dummies.", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(bool), Summary = "List of the dummy responses", Description = "This returns the list of dummy responses")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_DELETE)]
-        public async Task<IActionResult> DeleteEmail(
+        public async Task<IActionResult> DeleteItem(
             [HttpTrigger(AuthorizationLevel.Function, "delete",
             Route = HttpTriggerFunctionRouteConstants.ITEM_BYID)] HttpRequest request, Guid id)
         {
