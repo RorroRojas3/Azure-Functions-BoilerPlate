@@ -7,7 +7,7 @@ namespace Rodrigo.Tech.Services.Helpers
     {
         public static string GetCurrentDirectory()
         {
-            string directory = "D:\\home\\site\\wwwroot";
+            string directory = "C:\\home\\site\\wwwroot";
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("local", StringComparison.OrdinalIgnoreCase))
             {
                 directory = Directory.GetCurrentDirectory();
