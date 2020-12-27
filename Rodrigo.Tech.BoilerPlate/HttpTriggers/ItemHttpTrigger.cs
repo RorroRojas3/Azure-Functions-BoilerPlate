@@ -9,6 +9,12 @@ using Newtonsoft.Json;
 using Rodrigo.Tech.Services.Interface;
 using Rodrigo.Tech.Model.Constants;
 using Rodrigo.Tech.Model.Requests;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.OpenApi.Models;
+using System.Net;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using System.Collections.Generic;
+using Rodrigo.Tech.Model.Responses;
 
 namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
 {
@@ -24,8 +30,15 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             _itemService = itemService;
         }
 
+        /// <summary>
+        ///     Gets list of items
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [OpenApiOperation(operationId: "getItems", tags: new[] { "Item" }, Summary = "Gets list of Items", Description = "Returns list of items", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IList<ItemResponse>), Summary = "Gets list of items", Description = "Returns list of items")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_GETALL)]
-        public async Task<IActionResult> GetAllEmails(
+        public async Task<IActionResult> GetAllItems(
             [HttpTrigger(AuthorizationLevel.Function, "get",
             Route = HttpTriggerFunctionRouteConstants.ITEM)] HttpRequest req
             )
@@ -46,8 +59,17 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        /// <summary>
+        ///     Gets item by Id
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OpenApiOperation(operationId: "getItem", tags: new[] { "Item" }, Summary = "Gets item", Description = "Returns item", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = true, Type = typeof(Guid), Summary = "Id", Description = "Id", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ItemResponse), Summary = "Gets item", Description = "Returns item")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_GET)]
-        public async Task<IActionResult> GetEmail(
+        public async Task<IActionResult> GetItem(
             [HttpTrigger(AuthorizationLevel.Function, "get",
             Route = HttpTriggerFunctionRouteConstants.ITEM_BYID)] HttpRequest request, Guid id)
         {
@@ -67,8 +89,16 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        /// <summary>
+        ///     Creates item
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [OpenApiOperation(operationId: "postItem", tags: new[] { "Item" }, Summary = "Creates item", Description = "Creates item", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(ItemRequest), Required = true, Description = "Request")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.Created, contentType: "application/json", bodyType: typeof(ItemResponse), Summary = "Creates item", Description = "Creates item")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_POST)]
-        public async Task<IActionResult> PostEmail(
+        public async Task<IActionResult> PostItem(
             [HttpTrigger(AuthorizationLevel.Function, "post",
             Route = HttpTriggerFunctionRouteConstants.ITEM)] HttpRequest request)
         {
@@ -81,7 +111,7 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
                 var result = await _itemService.PostItem(emailBodyRequest);
 
                 _logger.LogInformation($"{HttpTriggerFunctionNameConstants.ITEM_POST} - Finished");
-                return new StatusCodeResult(StatusCodes.Status201Created);
+                return new CreatedResult(string.Empty, result);
             }
             catch (Exception ex)
             {
@@ -90,8 +120,18 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        /// <summary>
+        ///     Updates item
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OpenApiOperation(operationId: "putItem", tags: new[] { "Item" }, Summary = "Updates item", Description = "Updates item", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = true, Type = typeof(Guid), Summary = "Id", Description = "Id", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(ItemRequest), Required = true, Description = "Request")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(ItemResponse), Summary = "Updates item", Description = "Updates item")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_PUT)]
-        public async Task<IActionResult> PutEmail(
+        public async Task<IActionResult> PutItem(
             [HttpTrigger(AuthorizationLevel.Function, "put",
             Route = HttpTriggerFunctionRouteConstants.ITEM_BYID)] HttpRequest request, Guid id)
         {
@@ -113,8 +153,17 @@ namespace Rodrigo.Tech.BoilerPlate.HttpTriggers
             }
         }
 
+        /// <summary>
+        ///     Delets item
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [OpenApiOperation(operationId: "deleteItem", tags: new[] { "Item" }, Summary = "Deletes item", Description = "Deletes item", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = true, Type = typeof(Guid), Summary = "Id", Description = "Id", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(bool), Summary = "Deletes item", Description = "Deletes item")]
         [FunctionName(HttpTriggerFunctionNameConstants.ITEM_DELETE)]
-        public async Task<IActionResult> DeleteEmail(
+        public async Task<IActionResult> DeleteItem(
             [HttpTrigger(AuthorizationLevel.Function, "delete",
             Route = HttpTriggerFunctionRouteConstants.ITEM_BYID)] HttpRequest request, Guid id)
         {

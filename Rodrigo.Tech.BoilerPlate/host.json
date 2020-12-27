@@ -1,11 +1,28 @@
 {
-    "version": "2.0",
-    "logging": {
-        "applicationInsights": {
-            "samplingExcludedTypes": "Request",
-            "samplingSettings": {
-                "isEnabled": true
-            }
-        }
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingExcludedTypes": "Request",
+      "samplingSettings": {
+        "isEnabled": true
+      }
     }
+  },
+  "openApi": {
+    "info": {
+      "version": "3.0.0",
+      "title": "Azure Functions Boilerplate",
+      "description": "A sample API that runs on Azure Functions.",
+      "termsOfService": "https://github.com/RorroRojas3/Azure-Functions-BoilerPlate",
+      "contact": {
+        "name": "Rodrigo Rojas",
+        "email": "rorro.irg@gmail.com",
+        "url": "https://github.com/RorroRojas3/Azure-Functions-BoilerPlate/issues"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "http://opensource.org/licenses/MIT"
+      }
+    }
+  }
 }
