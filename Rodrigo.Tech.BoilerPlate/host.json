@@ -11,13 +11,13 @@
   "openApi": {
     "info": {
       "version": "3.0.0",
-      "title": "Open API Sample on Azure Functions (IoC)",
-      "description": "A sample API that runs on Azure Functions (IoC) 3.x using Open API specification.",
-      "termsOfService": "https://github.com/Azure/azure-functions-openapi-extension",
+      "title": "Azure Functions Boilerplate",
+      "description": "A sample API that runs on Azure Functions.",
+      "termsOfService": "https://github.com/RorroRojas3/Azure-Functions-BoilerPlate",
       "contact": {
-        "name": "Contoso",
-        "email": "azfunc-openapi@contoso.com",
-        "url": "https://github.com/Azure/azure-functions-openapi-extension/issues"
+        "name": "Rodrigo Rojas",
+        "email": "rorro.irg@gmail.com",
+        "url": "https://github.com/RorroRojas3/Azure-Functions-BoilerPlate/issues"
       },
       "license": {
         "name": "MIT",
