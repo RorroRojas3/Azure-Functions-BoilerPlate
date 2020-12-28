@@ -17,13 +17,6 @@ namespace Rodrigo.Tech.BoilerPlate.Extensions.ServiceCollection
         /// <param name="configuration"></param>
         public static void AddLoggingServiceCollection(this IServiceCollection services, IConfiguration configuration)
         {
-            var currentDirectory = DirectoryHelper.GetCurrentDirectory();
-            var logDirectory = Path.Combine(currentDirectory, "Logs");
-            if (!Directory.Exists(logDirectory))
-            {
-                Directory.CreateDirectory(logDirectory);
-            }
-
             var logger = new LoggerConfiguration()
                             .WriteTo.Console(LogEventLevel.Information)
                             .WriteTo.ApplicationInsightsTraces(Environment.GetEnvironmentVariable("APPINSIGHTS_INSTRUMENTATIONKEY"), LogEventLevel.Information)
