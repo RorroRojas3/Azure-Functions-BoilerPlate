@@ -5,4 +5,4 @@
 ![](https://vsrm.dev.azure.com/rorroirg/_apis/public/Release/badge/9650e4e5-4a98-4371-8460-252782275fe3/1/1)
 
 ### Azure Hosted
-![Azure Functions Swagger UI](https://rodrigotechazurefunctionsboilerplate.azurewebsites.net/api/swagger/ui)
+[Azure Functions Swagger UI](https://rodrigotechazurefunctionsboilerplate.azurewebsites.net/api/swagger/ui)
