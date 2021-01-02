@@ -3,6 +3,7 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Rodrigo.Tech.BoilerPlate.Extensions.ServiceCollection;
 using Rodrigo.Tech.Model.AutoMapper;
+using Rodrigo.Tech.Model.Constants;
 using Rodrigo.Tech.Services.Helpers;
 using Serilog;
 using System;
@@ -14,7 +15,7 @@ namespace Rodrigo.Tech.BoilerPlate
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var currentEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var currentEnvironment = Environment.GetEnvironmentVariable(EnvironmentConstants.ASPNETCORE_ENVIRONMENT);
             var jsonFile = currentEnvironment.Equals("local", StringComparison.OrdinalIgnoreCase) 
                                     ? "appsettings.local.json" : "appsettings.json";
             var configuration = new ConfigurationBuilder()
