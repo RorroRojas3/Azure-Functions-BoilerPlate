@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Rodrigo.Tech.BoilerPlate.Extensions.ServiceCollection;
 using Rodrigo.Tech.Model.AutoMapper;
 using Rodrigo.Tech.Model.Constants;
